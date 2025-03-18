@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 public class LiveOddServiceTest {
     @Test
     void testStartFootballMatch() {
-        LiveScoreboard liveScoreboard = new LiveScoreBoard();
+        LiveScoreboard liveScoreboard = new LiveScoreboard();
         FootballMatch match = liveScoreboard.startFootballMatch("Croatia", "France");
 
         int initialScore = 0;
