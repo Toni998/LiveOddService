@@ -3,6 +3,8 @@ package org.live_odd_service;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 public class LiveOddServiceTest {
     @Test
     void testStartFootballMatch() {
@@ -77,5 +79,27 @@ public class LiveOddServiceTest {
 
         Assertions.assertFalse(liveScoreboard.getSummary().contains(match));
         Assertions.assertFalse(liveScoreboard.getSummary().contains(null));
+    }
+
+    @Test
+    void testGetFootballMatchesSummary() {
+        LiveScoreboard liveScoreboard = new LiveScoreboard();
+
+        FootballMatch match1 = liveScoreboard.startFootballMatch("Mexico", "Canada");
+        liveScoreboard.updateFootballMatchScore(match1, 0, 5);
+        FootballMatch match2 = liveScoreboard.startFootballMatch("Spain", "Brazil");
+        liveScoreboard.updateFootballMatchScore(match2, 10, 2);
+        FootballMatch match3 = liveScoreboard.startFootballMatch("Germany", "France");
+        liveScoreboard.updateFootballMatchScore(match3, 2, 2);
+        FootballMatch match4 = liveScoreboard.startFootballMatch("Uruguay", "Italy");
+        liveScoreboard.updateFootballMatchScore(match4, 6, 6);
+        FootballMatch match5 = liveScoreboard.startFootballMatch("Argentina", "Australia");
+        liveScoreboard.updateFootballMatchScore(match5, 3, 1);
+
+        List<FootballMatch> correctScoreboardOrder = List.of(match4, match2, match1, match3, match5);
+
+        List<FootballMatch> currentScoreboardOrder = liveScoreboard.getSummary();
+
+        Assertions.assertEquals(correctScoreboardOrder, currentScoreboardOrder, "Displayed order of football matches is not correct");
     }
 }
