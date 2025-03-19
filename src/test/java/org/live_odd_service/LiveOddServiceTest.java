@@ -18,6 +18,15 @@ public class LiveOddServiceTest {
         Assertions.assertEquals(initialScore, match.getAwayTeamScore(), "Away team initial score should be 0.");
     }
 
+    @Test
+    void testStartFootballMatchWithValidTeams() {
+        LiveScoreboard liveScoreboard = new LiveScoreboard();
+        FootballMatch match = liveScoreboard.startFootballMatch("Croatia", "France");
+        FootballMatch match2 = liveScoreboard.startFootballMatch("Poland", "Hungary");
+
+        Assertions.assertFalse(liveScoreboard.worldCupTeams.contains(match.getAwayTeamName()), "Home team is not allowed to play world cup");
+
+    }
     //test for starting match with team names which are not participating in world cup (define list with the names from example)
 
     @Test
