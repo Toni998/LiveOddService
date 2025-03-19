@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 public class LiveScoreboard {
 
+    List<String> worldCupTeams = new ArrayList<>();
     List<FootballMatch> footballMatches = new ArrayList<>();
 
     FootballMatch startFootballMatch(String homeTeamName, String awayTeamName) {
