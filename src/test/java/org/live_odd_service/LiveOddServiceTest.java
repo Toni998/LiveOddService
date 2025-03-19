@@ -41,4 +41,12 @@ public class LiveOddServiceTest {
         Assertions.assertEquals(1, match.getHomeTeamScore(), "Home team score should be 1");
         Assertions.assertEquals(2, match.getAwayTeamScore(), "Away team score should be 2");
     }
+
+    @Test
+    void testUpdateNotExistingMatch() {
+        LiveScoreboard liveScoreboard = new LiveScoreboard();
+        FootballMatch notExistingMatch = new FootballMatch("Uruguay", "England", 0,0);
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.updateFootballMatchScore(notExistingMatch, 1,1));
+    }
 }
