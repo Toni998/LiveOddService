@@ -96,6 +96,16 @@ public class LiveOddServiceTest {
     }
 
     @Test
+    void testAlreadyFinishedMatch() {
+        LiveScoreboard liveScoreboard = new LiveScoreboard();
+        FootballMatch match = liveScoreboard.startFootballMatch("Hungary", "Poland");
+
+        liveScoreboard.finishFootballMatch(match);
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.finishFootballMatch(match), "Passed match already finished.");
+    }
+
+    @Test
     void testGetFootballMatchesSummary() {
         LiveScoreboard liveScoreboard = new LiveScoreboard();
 
