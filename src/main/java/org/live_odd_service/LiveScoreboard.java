@@ -20,10 +20,20 @@ public class LiveScoreboard {
     }
 
     public void updateFootballMatchScore(FootballMatch match, int homeTeamScore, int awayTeamScore) {
-        if (!footballMatches.contains(match) || homeTeamScore < 0 || awayTeamScore < 0) {
-            throw new IllegalArgumentException("Match update not possible, check football match or scores");
+        if (!footballMatches.contains(match)) {
+            throw new IllegalArgumentException("Match update not possible, invalid match");
         }
-        match.updateScore(homeTeamScore, awayTeamScore);
+
+        if (homeTeamScore == -1 && awayTeamScore >= 0 || homeTeamScore >=0 && awayTeamScore == -1) {
+            if (match.getHomeTeamScore() + homeTeamScore < 0 || match.getAwayTeamScore() + awayTeamScore < 0) {
+                throw new IllegalArgumentException("Invalid score update, score cannot be negative after update");
+            }
+            match.updateScore(match.getHomeTeamScore() + homeTeamScore, match.getAwayTeamScore() + awayTeamScore);
+        } else if (homeTeamScore < -1 || awayTeamScore < -1) {
+            throw new IllegalArgumentException("Invalid score update, score cannot be negative after update");
+        } else {
+            match.updateScore(homeTeamScore, awayTeamScore);
+        }
     }
 
     public void finishFootballMatch(FootballMatch match) {
