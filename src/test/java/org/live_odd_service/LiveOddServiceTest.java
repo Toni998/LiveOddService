@@ -49,4 +49,12 @@ public class LiveOddServiceTest {
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.updateFootballMatchScore(notExistingMatch, 1,1));
     }
+
+    @Test
+    void testUpdateFootballMatchWithNegativeScores() {
+        LiveScoreboard liveScoreboard = new LiveScoreboard();
+        FootballMatch match = liveScoreboard.startFootballMatch("France", "Netherlands");
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.updateFootballMatchScore(match, -2, 1));
+    }
 }
