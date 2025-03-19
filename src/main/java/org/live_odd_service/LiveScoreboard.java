@@ -37,6 +37,9 @@ public class LiveScoreboard {
     }
 
     public void finishFootballMatch(FootballMatch match) {
+        if (!footballMatches.contains(match)) {
+            throw new IllegalArgumentException("Invalid match");
+        }
         footballMatches.remove(match);
     }
 

@@ -102,7 +102,8 @@ public class LiveOddServiceTest {
 
         liveScoreboard.finishFootballMatch(match);
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.finishFootballMatch(match), "Passed match already finished.");
+        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.finishFootballMatch(match));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.finishFootballMatch(null));
     }
 
     @Test
