@@ -58,4 +58,8 @@ public class LiveScoreboard {
         }
         return true;
     }
+
+    public void areTeamPairsValid(String homeTeamName, String awayTeamName) {
+        throw new IllegalArgumentException("Team pair is not valid");
+    }
 }
