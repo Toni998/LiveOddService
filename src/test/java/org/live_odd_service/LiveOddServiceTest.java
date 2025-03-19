@@ -28,9 +28,16 @@ public class LiveOddServiceTest {
         Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.isTeamParticipatingWorldCup(match2.getHomeTeamName()));
         Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.isTeamParticipatingWorldCup(match2.getAwayTeamName()));
         Assertions.assertTrue(liveScoreboard.isTeamParticipatingWorldCup(match.getAwayTeamName()));
-
     }
-    //test for starting match with team names which are not participating in world cup (define list with the names from example)
+
+    @Test
+    void testAreTeamPairsValid() {
+        LiveScoreboard liveScoreboard = new LiveScoreboard();
+        FootballMatch match = liveScoreboard.startFootballMatch("Croatia", "France");
+        FootballMatch match2 = liveScoreboard.startFootballMatch("Poland", "Hungary");
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.areTeamPairsValid(match.getHomeTeamName(), match.getAwayTeamName()));
+    }
 
     @Test
     void testStartFootballMatchWithEmptyNames() {
