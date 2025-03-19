@@ -33,4 +33,9 @@ public class FootballMatch {
         this.homeTeamScore = homeTeamScore;
         this.awayTeamScore = awayTeamScore;
     }
+
+    @Override
+    public String toString() {
+        return homeTeamName + " " + homeTeamScore + " - " + awayTeamScore + " " + awayTeamName;
+    }
 }

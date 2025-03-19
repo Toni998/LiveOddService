@@ -1,7 +1,9 @@
 package org.live_odd_service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class LiveScoreboard {
 
@@ -29,6 +31,10 @@ public class LiveScoreboard {
     }
 
     public List<FootballMatch> getSummary() {
-        return footballMatches;
+        return footballMatches.stream()
+                .sorted(Comparator.comparingInt((FootballMatch match) -> match.getHomeTeamScore() + match.getAwayTeamScore())
+                        .thenComparing(footballMatches::indexOf)
+                        .reversed())
+                .collect(Collectors.toList());
     }
 }

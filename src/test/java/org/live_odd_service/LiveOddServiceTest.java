@@ -96,7 +96,7 @@ public class LiveOddServiceTest {
         FootballMatch match5 = liveScoreboard.startFootballMatch("Argentina", "Australia");
         liveScoreboard.updateFootballMatchScore(match5, 3, 1);
 
-        List<FootballMatch> correctScoreboardOrder = List.of(match4, match2, match1, match3, match5);
+        List<FootballMatch> correctScoreboardOrder = List.of(match4, match2, match1, match5, match3);
 
         List<FootballMatch> currentScoreboardOrder = liveScoreboard.getSummary();
 
