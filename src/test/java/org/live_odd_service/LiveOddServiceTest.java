@@ -18,6 +18,8 @@ public class LiveOddServiceTest {
         Assertions.assertEquals(initialScore, match.getAwayTeamScore(), "Away team initial score should be 0.");
     }
 
+    //test for starting match with team names which are not participating in world cup (define list with the names from example)
+
     @Test
     void testStartFootballMatchWithEmptyNames() {
         LiveScoreboard liveScoreboard = new LiveScoreboard();
@@ -89,10 +91,7 @@ public class LiveOddServiceTest {
         LiveScoreboard liveScoreboard = new LiveScoreboard();
         FootballMatch match = new FootballMatch("Italy", "Spain",0,0);
 
-        liveScoreboard.finishFootballMatch(match);
-
-        Assertions.assertFalse(liveScoreboard.getSummary().contains(match));
-        Assertions.assertFalse(liveScoreboard.getSummary().contains(null));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.finishFootballMatch(match));
     }
 
     @Test
