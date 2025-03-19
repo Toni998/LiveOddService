@@ -20,14 +20,15 @@ public class LiveOddServiceTest {
     void testStartFootballMatchWithEmptyNames() {
         LiveScoreboard liveScoreboard = new LiveScoreboard();
 
-        Assertions.assertThrows(IllegalAccessError.class, () -> liveScoreboard.startFootballMatch("", "Finland"));
-        Assertions.assertThrows(IllegalAccessError.class, () -> liveScoreboard.startFootballMatch("Poland", ""));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.startFootballMatch("", "Finland"));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.startFootballMatch("Poland", ""));
     }
 
     @Test
     void testStartFootballMatchWithSameNames() {
         LiveScoreboard liveScoreboard = new LiveScoreboard();
 
-        Assertions.assertThrows(IllegalAccessError.class, () -> liveScoreboard.startFootballMatch("Croatia", "Croatia"));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.startFootballMatch("Croatia", "Croatia"));
+
     }
 }
