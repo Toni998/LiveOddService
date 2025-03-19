@@ -28,4 +28,9 @@ public class FootballMatch {
     public int getAwayTeamScore() {
         return this.awayTeamScore;
     }
+
+    public void updateScore(int homeTeamScore, int awayTeamScore) {
+        this.homeTeamScore = homeTeamScore;
+        this.awayTeamScore = awayTeamScore;
+    }
 }

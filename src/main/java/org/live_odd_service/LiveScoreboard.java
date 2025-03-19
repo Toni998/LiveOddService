@@ -16,4 +16,8 @@ public class LiveScoreboard {
 
         return match;
     }
+
+    public void updateFootballMatchScore(FootballMatch match, int homeTeamScore, int awayTeamScore) {
+        match.updateScore(homeTeamScore, awayTeamScore);
+    }
 }
