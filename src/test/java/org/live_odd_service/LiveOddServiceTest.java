@@ -24,7 +24,10 @@ public class LiveOddServiceTest {
         FootballMatch match = liveScoreboard.startFootballMatch("Croatia", "France");
         FootballMatch match2 = liveScoreboard.startFootballMatch("Poland", "Hungary");
 
-        Assertions.assertFalse(liveScoreboard.worldCupTeams.contains(match.getAwayTeamName()), "Home team is not allowed to play world cup");
+        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.isTeamParticipatingWorldCup(match.getHomeTeamName()));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.isTeamParticipatingWorldCup(match2.getHomeTeamName()));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.isTeamParticipatingWorldCup(match2.getAwayTeamName()));
+        Assertions.assertTrue(liveScoreboard.isTeamParticipatingWorldCup(match.getAwayTeamName()));
 
     }
     //test for starting match with team names which are not participating in world cup (define list with the names from example)

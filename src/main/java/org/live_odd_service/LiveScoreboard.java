@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 public class LiveScoreboard {
 
-    List<String> worldCupTeams = new ArrayList<>();
+    List<String> worldCupTeams = List.of("Mexico", "Canada", "Spain", "Brazil", "Germany", "France", "Uruguay", "Italy", "Argentina", "Australia");
     List<FootballMatch> footballMatches = new ArrayList<>();
 
     FootballMatch startFootballMatch(String homeTeamName, String awayTeamName) {
@@ -50,5 +50,12 @@ public class LiveScoreboard {
                         .thenComparing(footballMatches::indexOf)
                         .reversed())
                 .collect(Collectors.toList());
+    }
+
+    public boolean isTeamParticipatingWorldCup(String teamName) {
+        if (!worldCupTeams.contains(teamName)) {
+            throw new IllegalArgumentException("Team is not participating world cup!");
+        }
+        return true;
     }
 }
