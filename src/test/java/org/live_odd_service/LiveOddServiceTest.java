@@ -67,4 +67,15 @@ public class LiveOddServiceTest {
 
         Assertions.assertFalse(liveScoreboard.getSummary().contains(match));
     }
+
+    @Test
+    void testFinishNotExistingFootballMatch() {
+        LiveScoreboard liveScoreboard = new LiveScoreboard();
+        FootballMatch match = new FootballMatch("Italy", "Spain",0,0);
+
+        liveScoreboard.finishFootballMatch(match);
+
+        Assertions.assertFalse(liveScoreboard.getSummary().contains(match));
+        Assertions.assertFalse(liveScoreboard.getSummary().contains(null));
+    }
 }
