@@ -34,9 +34,10 @@ public class LiveOddServiceTest {
     void testAreTeamPairsValid() {
         LiveScoreboard liveScoreboard = new LiveScoreboard();
         FootballMatch match = liveScoreboard.startFootballMatch("Croatia", "France");
-        FootballMatch match2 = liveScoreboard.startFootballMatch("Poland", "Hungary");
+        FootballMatch match2 = liveScoreboard.startFootballMatch("Mexico", "Canada");
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.areTeamPairsValid(match.getHomeTeamName(), match.getAwayTeamName()));
+        Assertions.assertTrue(liveScoreboard.areTeamPairsValid(match2.getHomeTeamName(), match2.getAwayTeamName()));
     }
 
     @Test

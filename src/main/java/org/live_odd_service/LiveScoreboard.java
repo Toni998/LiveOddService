@@ -8,6 +8,18 @@ import java.util.stream.Collectors;
 public class LiveScoreboard {
 
     List<String> worldCupTeams = List.of("Mexico", "Canada", "Spain", "Brazil", "Germany", "France", "Uruguay", "Italy", "Argentina", "Australia");
+    List<List<String>> worldCupTeamPairs =  new ArrayList<>();
+
+    public List<List<String>> initWorldCupPairs() {
+        return List.of(
+                List.of("Mexico", "Canada"),
+                List.of("Spain", "Brazil"),
+                List.of("Germany", "France"),
+                List.of("Uruguay", "Italy"),
+                List.of("Argentina", "Australia")
+        );
+    }
+
     List<FootballMatch> footballMatches = new ArrayList<>();
 
     FootballMatch startFootballMatch(String homeTeamName, String awayTeamName) {
@@ -59,7 +71,11 @@ public class LiveScoreboard {
         return true;
     }
 
-    public void areTeamPairsValid(String homeTeamName, String awayTeamName) {
-        throw new IllegalArgumentException("Team pair is not valid");
+    public boolean areTeamPairsValid(String homeTeamName, String awayTeamName) {
+        worldCupTeamPairs = initWorldCupPairs();
+        if (!worldCupTeamPairs.contains(List.of(homeTeamName, awayTeamName))) {
+            throw new IllegalArgumentException("Team pair is not valid");
+        }
+        return true;
     }
 }
