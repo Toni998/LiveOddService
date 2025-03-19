@@ -23,4 +23,12 @@ public class LiveScoreboard {
         }
         match.updateScore(homeTeamScore, awayTeamScore);
     }
+
+    public void finishFootballMatch(FootballMatch match) {
+        footballMatches.remove(match);
+    }
+
+    public List<FootballMatch> getSummary() {
+        return footballMatches;
+    }
 }
