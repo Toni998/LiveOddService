@@ -61,6 +61,20 @@ public class LiveOddServiceTest {
     }
 
     @Test
+    void testUpdateFootballMatchWithVarIntervention() {
+        LiveScoreboard liveScoreboard = new LiveScoreboard();
+        FootballMatch match = liveScoreboard.startFootballMatch("France", "Brazil");
+
+        liveScoreboard.updateFootballMatchScore(match, 1,0);
+        Assertions.assertEquals(1, match.getHomeTeamScore(), "Home team score should be 1");
+        Assertions.assertEquals(0, match.getAwayTeamScore(),"Away team score should be 0");
+
+        liveScoreboard.updateFootballMatchScore(match, -1,0);
+        Assertions.assertEquals(0, match.getHomeTeamScore(), "Home team score should be 0");
+        Assertions.assertEquals(0, match.getAwayTeamScore(), "Away team score should be 0");
+    }
+
+    @Test
     void testFinishFootballMatch() {
         LiveScoreboard liveScoreboard = new LiveScoreboard();
         FootballMatch match = liveScoreboard.startFootballMatch("Italy", "Spain");
