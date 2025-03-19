@@ -18,8 +18,8 @@ public class LiveScoreboard {
     }
 
     public void updateFootballMatchScore(FootballMatch match, int homeTeamScore, int awayTeamScore) {
-        if (!footballMatches.contains(match)) {
-            throw new IllegalArgumentException("Match doesn't exists");
+        if (!footballMatches.contains(match) || homeTeamScore < 0 || awayTeamScore < 0) {
+            throw new IllegalArgumentException("Match update not possible, check football match or scores");
         }
         match.updateScore(homeTeamScore, awayTeamScore);
     }
