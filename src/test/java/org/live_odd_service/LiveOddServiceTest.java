@@ -15,4 +15,19 @@ public class LiveOddServiceTest {
         Assertions.assertEquals(initialScore, match.getHomeTeamScore(), "Home team initial score should be 0.");
         Assertions.assertEquals(initialScore, match.getAwayTeamScore(), "Away team initial score should be 0.");
     }
+
+    @Test
+    void testStartFootballMatchWithEmptyNames() {
+        LiveScoreboard liveScoreboard = new LiveScoreboard();
+
+        Assertions.assertThrows(IllegalAccessError.class, () -> liveScoreboard.startFootballMatch("", "Finland"));
+        Assertions.assertThrows(IllegalAccessError.class, () -> liveScoreboard.startFootballMatch("Poland", ""));
+    }
+
+    @Test
+    void testStartFootballMatchWithSameNames() {
+        LiveScoreboard liveScoreboard = new LiveScoreboard();
+
+        Assertions.assertThrows(IllegalAccessError.class, () -> liveScoreboard.startFootballMatch("Croatia", "Croatia"));
+    }
 }
