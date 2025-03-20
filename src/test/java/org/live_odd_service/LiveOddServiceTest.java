@@ -96,7 +96,17 @@ public class LiveOddServiceTest {
         Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.updateFootballMatchScore(match, -2, 1));
     }
 
-    //TODO : testUpdateFootballMatchScoreWhenMatchFinished
+    @Test
+    void testUpdateFootballMatchScoreWhenMatchFinished() {
+        LiveScoreboard liveScoreboard = new LiveScoreboard();
+        FootballMatch match = liveScoreboard.startFootballMatch("Spain", "Brazil");
+
+        liveScoreboard.updateFootballMatchScore(match, 1, 2);
+        liveScoreboard.finishFootballMatch(match);
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.updateFootballMatchScore(match, -2, 1));
+
+    }
     @Test
     void testFinishFootballMatch() {
         LiveScoreboard liveScoreboard = new LiveScoreboard();
