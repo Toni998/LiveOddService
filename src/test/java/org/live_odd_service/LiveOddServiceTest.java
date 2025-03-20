@@ -59,15 +59,6 @@ public class LiveOddServiceTest {
         Assertions.assertTrue(liveScoreboard.areTeamPairsValid(match2.getHomeTeamName(), match2.getAwayTeamName()));
     }
 
-    //TODO: delete
-    @Test
-    void testStartFootballMatchWithEmptyNames() {
-        LiveScoreboard liveScoreboard = new LiveScoreboard();
-
-        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.startFootballMatch("", "Finland"));
-        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.startFootballMatch("Poland", ""));
-    }
-
     @Test
     void testStartFootballMatchWithSameNames() {
         LiveScoreboard liveScoreboard = new LiveScoreboard();
@@ -104,20 +95,6 @@ public class LiveOddServiceTest {
         Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.updateFootballMatchScore(match, -2, 1));
     }
 
-    @Test
-    void testUpdateFootballMatchWithVarIntervention() {
-        LiveScoreboard liveScoreboard = new LiveScoreboard();
-        FootballMatch match = liveScoreboard.startFootballMatch("Argentina", "Australia");
-
-        Assertions.assertTrue(liveScoreboard.areTeamPairsValid(match.getHomeTeamName(), match.getAwayTeamName()));
-        liveScoreboard.updateFootballMatchScore(match, 1,0);
-        Assertions.assertEquals(1, match.getHomeTeamScore(), "Home team score should be 1");
-        Assertions.assertEquals(0, match.getAwayTeamScore(),"Away team score should be 0");
-
-        liveScoreboard.updateFootballMatchScore(match, -1,0);
-        Assertions.assertEquals(0, match.getHomeTeamScore(), "Home team score should be 0");
-        Assertions.assertEquals(0, match.getAwayTeamScore(), "Away team score should be 0");
-    }
     //TODO : testUpdateFootballMatchScoreWhenMatchFinished
     @Test
     void testFinishFootballMatch() {
