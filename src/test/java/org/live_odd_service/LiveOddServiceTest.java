@@ -1,15 +1,25 @@
 package org.live_odd_service;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class LiveOddServiceTest {
+
+    WorldCup worldCupData;
+    LiveScoreboard liveScoreboard;
+    @BeforeEach
+    void setUp() {
+        worldCupData = new WorldCup();
+        liveScoreboard = new LiveScoreboard(worldCupData);
+    }
+
     @Test
+    @DisplayName("Start football match")
+    @Order(1)
     void testStartFootballMatch() {
-        LiveScoreboard liveScoreboard = new LiveScoreboard();
         FootballMatch match = liveScoreboard.startFootballMatch("Croatia", "France");
 
         int initialScore = 0;
@@ -20,19 +30,18 @@ public class LiveOddServiceTest {
     }
 
     @Test
+    @DisplayName("Start football match - already started match")
+    @Order(2)
     void testStartFootballMatchAlreadyStartedMatch() {
-        LiveScoreboard liveScoreboard = new LiveScoreboard();
-
         FootballMatch match = liveScoreboard.startFootballMatch("Mexico", "Canada");
-
         Assertions.assertTrue(liveScoreboard.areTeamPairsValid(match.getHomeTeamName(), match.getAwayTeamName(), false));
-
         Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.startFootballMatch("Mexico", "Canada"));
     }
 
     @Test
+    @DisplayName("Start football match - valid names")
+    @Order(3)
     void testStartFootballMatchWithValidTeams() {
-        LiveScoreboard liveScoreboard = new LiveScoreboard();
         FootballMatch match = liveScoreboard.startFootballMatch("Croatia", "France");
         FootballMatch match2 = liveScoreboard.startFootballMatch("Poland", "Hungary");
 
@@ -52,8 +61,9 @@ public class LiveOddServiceTest {
     }
 
     @Test
+    @DisplayName("Team pairs valid")
+    @Order(4)
     void testAreTeamPairsValid() {
-        LiveScoreboard liveScoreboard = new LiveScoreboard();
         FootballMatch match = liveScoreboard.startFootballMatch("Croatia", "France");
         FootballMatch match2 = liveScoreboard.startFootballMatch("Mexico", "Canada");
 
@@ -63,15 +73,16 @@ public class LiveOddServiceTest {
     }
 
     @Test
+    @DisplayName("Start football match - same names")
+    @Order(5)
     void testStartFootballMatchWithSameNames() {
-        LiveScoreboard liveScoreboard = new LiveScoreboard();
-
         Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.startFootballMatch("Croatia", "Croatia"));
     }
 
     @Test
+    @DisplayName("Update match score")
+    @Order(6)
     void testUpdateFootballMatchScore() {
-        LiveScoreboard liveScoreboard = new LiveScoreboard();
         FootballMatch match = liveScoreboard.startFootballMatch("Spain", "Brazil");
 
         liveScoreboard.updateFootballMatchScore(match, 1, 2);
@@ -82,16 +93,18 @@ public class LiveOddServiceTest {
     }
 
     @Test
+    @DisplayName("Update match score - not existing match")
+    @Order(7)
     void testUpdateNotExistingMatch() {
-        LiveScoreboard liveScoreboard = new LiveScoreboard();
         FootballMatch notExistingMatch = new FootballMatch("Uruguay", "England", 0,0);
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.updateFootballMatchScore(notExistingMatch, 1,1));
     }
 
     @Test
+    @DisplayName("Update match score - negative score")
+    @Order(8)
     void testUpdateFootballMatchWithNegativeScores() {
-        LiveScoreboard liveScoreboard = new LiveScoreboard();
         FootballMatch match = liveScoreboard.startFootballMatch("Germany", "France");
 
         Assertions.assertTrue(liveScoreboard.areTeamPairsValid(match.getHomeTeamName(), match.getAwayTeamName(), false));
@@ -99,8 +112,9 @@ public class LiveOddServiceTest {
     }
 
     @Test
+    @DisplayName("Update match score - finished match")
+    @Order(9)
     void testUpdateFootballMatchScoreWhenMatchFinished() {
-        LiveScoreboard liveScoreboard = new LiveScoreboard();
         FootballMatch match = liveScoreboard.startFootballMatch("Spain", "Brazil");
 
         liveScoreboard.updateFootballMatchScore(match, 1, 2);
@@ -110,8 +124,9 @@ public class LiveOddServiceTest {
 
     }
     @Test
+    @DisplayName("Finish match")
+    @Order(10)
     void testFinishFootballMatch() {
-        LiveScoreboard liveScoreboard = new LiveScoreboard();
         FootballMatch match = liveScoreboard.startFootballMatch("Uruguay", "Italy");
 
         Assertions.assertTrue(liveScoreboard.areTeamPairsValid(match.getHomeTeamName(), match.getAwayTeamName(), false));
@@ -121,16 +136,18 @@ public class LiveOddServiceTest {
     }
 
     @Test
+    @DisplayName("Finish match - not existing match")
+    @Order(11)
     void testFinishNotExistingFootballMatch() {
-        LiveScoreboard liveScoreboard = new LiveScoreboard();
         FootballMatch match = new FootballMatch("Italy", "Spain",0,0);
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.finishFootballMatch(match));
     }
 
     @Test
+    @DisplayName("Finish match - already finished match")
+    @Order(12)
     void testAlreadyFinishedMatch() {
-        LiveScoreboard liveScoreboard = new LiveScoreboard();
         FootballMatch match = liveScoreboard.startFootballMatch("Spain", "Brazil");
         liveScoreboard.areTeamPairsValid(match.getHomeTeamName(), match.getAwayTeamName(), false);
         liveScoreboard.finishFootballMatch(match);
@@ -140,9 +157,9 @@ public class LiveOddServiceTest {
     }
 
     @Test
+    @DisplayName("Match summary")
+    @Order(13)
     void testGetFootballMatchesSummary() {
-        LiveScoreboard liveScoreboard = new LiveScoreboard();
-
         FootballMatch match1 = liveScoreboard.startFootballMatch("Mexico", "Canada");
         liveScoreboard.updateFootballMatchScore(match1, 0, 5);
         FootballMatch match2 = liveScoreboard.startFootballMatch("Spain", "Brazil");
@@ -162,8 +179,9 @@ public class LiveOddServiceTest {
     }
 
     @Test
+    @DisplayName("Match summary - empty list")
+    @Order(14)
     void testGetFootballMatchSummaryWithEmptyScoreboard() {
-        LiveScoreboard liveScoreboard = new LiveScoreboard();
         List<FootballMatch> correctScoreboardOrder = new ArrayList<>();
 
         List<FootballMatch> currentScoreboardOrder = liveScoreboard.getSummary();

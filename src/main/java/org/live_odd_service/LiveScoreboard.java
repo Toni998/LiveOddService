@@ -7,20 +7,13 @@ import java.util.stream.Collectors;
 
 public class LiveScoreboard {
 
-    List<String> worldCupTeams = List.of("Mexico", "Canada", "Spain", "Brazil", "Germany", "France", "Uruguay", "Italy", "Argentina", "Australia");
-    List<List<String>> worldCupTeamPairs =  new ArrayList<>();
+    private final WorldCup worldCup;
+    private final List<FootballMatch> footballMatches;
 
-    public List<List<String>> initWorldCupPairs() {
-        return List.of(
-                List.of("Mexico", "Canada"),
-                List.of("Spain", "Brazil"),
-                List.of("Germany", "France"),
-                List.of("Uruguay", "Italy"),
-                List.of("Argentina", "Australia")
-        );
+    public LiveScoreboard(WorldCup worldCup) {
+        this.worldCup= worldCup;
+        this.footballMatches = new ArrayList<>();
     }
-
-    List<FootballMatch> footballMatches = new ArrayList<>();
 
     FootballMatch startFootballMatch(String homeTeamName, String awayTeamName) {
         if (homeTeamName == null || awayTeamName == null || homeTeamName.isBlank() || awayTeamName.isBlank() || homeTeamName.equals(awayTeamName)) {
@@ -30,10 +23,8 @@ public class LiveScoreboard {
                 match.getHomeTeamName().equals(homeTeamName) && match.getAwayTeamName().equals(awayTeamName))) {
             throw new IllegalArgumentException("Match already started!");
         }
-
         FootballMatch match = new FootballMatch(homeTeamName, awayTeamName, 0,0);
         footballMatches.add(match);
-
         return match;
     }
 
@@ -41,8 +32,7 @@ public class LiveScoreboard {
         if (!footballMatches.contains(match)) {
             throw new IllegalArgumentException("Match update not possible, invalid match");
         }
-
-        if (homeTeamScore < -1 || awayTeamScore < -1) {
+        if (homeTeamScore < 0 || awayTeamScore < 0) {
             throw new IllegalArgumentException("Invalid score update, score cannot be negative after update");
         } else {
             match.updateScore(homeTeamScore, awayTeamScore);
@@ -65,7 +55,7 @@ public class LiveScoreboard {
     }
 
     public boolean isTeamParticipatingWorldCup(String teamName, boolean throwException) {
-        boolean isParticipating = worldCupTeams.contains(teamName);
+        boolean isParticipating = worldCup.isTeamParticipating(teamName);
         if (!isParticipating && throwException) {
             throw new IllegalArgumentException("Team is not participating world cup!");
         }
@@ -73,8 +63,7 @@ public class LiveScoreboard {
     }
 
     public boolean areTeamPairsValid(String homeTeamName, String awayTeamName, boolean throwException) {
-        worldCupTeamPairs = initWorldCupPairs();
-        boolean isPairValid = worldCupTeamPairs.contains(List.of(homeTeamName, awayTeamName));
+        boolean isPairValid =  worldCup.isValidTeamPair(homeTeamName, awayTeamName);
         if (!isPairValid && throwException) {
             throw new IllegalArgumentException("Team pair is not valid");
         }
