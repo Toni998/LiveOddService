@@ -64,11 +64,12 @@ public class LiveScoreboard {
                 .collect(Collectors.toList());
     }
 
-    public boolean isTeamParticipatingWorldCup(String teamName) {
-        if (!worldCupTeams.contains(teamName)) {
+    public boolean isTeamParticipatingWorldCup(String teamName, boolean throwException) {
+        boolean isParticipating = worldCupTeams.contains(teamName);
+        if (!isParticipating && throwException) {
             throw new IllegalArgumentException("Team is not participating world cup!");
         }
-        return true;
+        return isParticipating;
     }
 
     public boolean areTeamPairsValid(String homeTeamName, String awayTeamName) {

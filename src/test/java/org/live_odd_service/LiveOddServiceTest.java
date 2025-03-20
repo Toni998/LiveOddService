@@ -38,16 +38,17 @@ public class LiveOddServiceTest {
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.areTeamPairsValid(match.getHomeTeamName(), match.getAwayTeamName()));
         Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.areTeamPairsValid(match2.getHomeTeamName(), match2.getAwayTeamName()));
-        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.isTeamParticipatingWorldCup(match.getHomeTeamName()));
-        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.isTeamParticipatingWorldCup(match2.getHomeTeamName()));
-        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.isTeamParticipatingWorldCup(match2.getAwayTeamName()));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.isTeamParticipatingWorldCup(match.getHomeTeamName(), true));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.isTeamParticipatingWorldCup(match2.getHomeTeamName(), true));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.isTeamParticipatingWorldCup(match2.getAwayTeamName(), true));
         Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.startFootballMatch("", ""));
         Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.startFootballMatch("", "Brazil"));
         Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.startFootballMatch("France", ""));
         Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.startFootballMatch("   ", "   "));
         Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.startFootballMatch("Spain", "   "));
         Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.startFootballMatch("Sp ain", "   "));
-        Assertions.assertTrue(liveScoreboard.isTeamParticipatingWorldCup(match.getAwayTeamName()));
+        Assertions.assertFalse(liveScoreboard.isTeamParticipatingWorldCup(match.getHomeTeamName(),false));
+        Assertions.assertTrue(liveScoreboard.isTeamParticipatingWorldCup(match.getAwayTeamName(),false));
     }
 
     @Test
