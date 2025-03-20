@@ -3,6 +3,7 @@ package org.live_odd_service;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LiveOddServiceTest {
@@ -147,5 +148,13 @@ public class LiveOddServiceTest {
 
         Assertions.assertEquals(correctScoreboardOrder, currentScoreboardOrder, "Displayed order of football matches is not correct");
     }
-    //TODO : testGetFootballMatchSummaryWithEmptyScoreboard
+
+    @Test
+    void testGetFootballMatchSummaryWithEmptyScoreboard() {
+        LiveScoreboard liveScoreboard = new LiveScoreboard();
+        List<FootballMatch> correctScoreboardOrder = new ArrayList<>();
+
+        List<FootballMatch> currentScoreboardOrder = liveScoreboard.getSummary();
+        Assertions.assertEquals(correctScoreboardOrder, currentScoreboardOrder, "Displayed order of football matches is not correct");
+    }
 }
