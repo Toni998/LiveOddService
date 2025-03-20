@@ -47,11 +47,11 @@ Test ovreview :
 - Match summary - empty list - responsible for testing output when empty scoreboard provided for getting summary. 
 
 How to run ?
--Clone LiveOddService repository.
--Open in desired IDE (implemented in Intelij)
--Add dependencies
--For running tests -> open LiveOddServiceTest and run it
--For running main program and checking summary from requirements -> run main program
+1.Clone LiveOddService repository.
+2.Open in desired IDE (implemented in Intelij)
+3.Add dependencies
+4.For running tests -> open LiveOddServiceTest and run it
+5.For running main program and checking summary from requirements -> run main program
 
 Enjoy !
 
