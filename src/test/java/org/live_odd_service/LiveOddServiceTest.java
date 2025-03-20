@@ -25,8 +25,8 @@ public class LiveOddServiceTest {
         Assertions.assertFalse(liveScoreboard.isTeamParticipatingWorldCup("Croatia",false));
         Assertions.assertTrue(liveScoreboard.isTeamParticipatingWorldCup("France",false));
         Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.areTeamPairsValid("Croatia", "France",true));
-        Assertions.assertTrue(liveScoreboard.areTeamPairsValid("Mexico", "Canada",false));
-        Assertions.assertTrue(liveScoreboard.isTeamParticipatingWorldCup("Mexico",false));
+        Assertions.assertTrue(liveScoreboard.areTeamPairsValid(match.getHomeTeamName(), match.getAwayTeamName(),false));
+        Assertions.assertTrue(liveScoreboard.isTeamParticipatingWorldCup(match.getHomeTeamName(),false));
     }
 
     @Test
