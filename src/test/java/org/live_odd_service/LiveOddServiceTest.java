@@ -18,15 +18,24 @@ public class LiveOddServiceTest {
         Assertions.assertEquals(initialScore, match.getAwayTeamScore(), "Away team initial score should be 0.");
     }
 
+    //TODO: testStartFootballMatchAlreadyStartedMatch
     @Test
     void testStartFootballMatchWithValidTeams() {
         LiveScoreboard liveScoreboard = new LiveScoreboard();
         FootballMatch match = liveScoreboard.startFootballMatch("Croatia", "France");
         FootballMatch match2 = liveScoreboard.startFootballMatch("Poland", "Hungary");
 
+        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.areTeamPairsValid(match.getHomeTeamName(), match.getAwayTeamName()));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.areTeamPairsValid(match2.getHomeTeamName(), match2.getAwayTeamName()));
         Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.isTeamParticipatingWorldCup(match.getHomeTeamName()));
         Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.isTeamParticipatingWorldCup(match2.getHomeTeamName()));
         Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.isTeamParticipatingWorldCup(match2.getAwayTeamName()));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.startFootballMatch("", ""));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.startFootballMatch("", "Brazil"));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.startFootballMatch("France", ""));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.startFootballMatch("   ", "   "));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.startFootballMatch("Spain", "   "));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.startFootballMatch("Sp ain", "   "));
         Assertions.assertTrue(liveScoreboard.isTeamParticipatingWorldCup(match.getAwayTeamName()));
     }
 
@@ -40,6 +49,7 @@ public class LiveOddServiceTest {
         Assertions.assertTrue(liveScoreboard.areTeamPairsValid(match2.getHomeTeamName(), match2.getAwayTeamName()));
     }
 
+    //TODO: delete
     @Test
     void testStartFootballMatchWithEmptyNames() {
         LiveScoreboard liveScoreboard = new LiveScoreboard();
@@ -58,10 +68,11 @@ public class LiveOddServiceTest {
     @Test
     void testUpdateFootballMatchScore() {
         LiveScoreboard liveScoreboard = new LiveScoreboard();
-        FootballMatch match = liveScoreboard.startFootballMatch("Spain", "Italy");
+        FootballMatch match = liveScoreboard.startFootballMatch("Spain", "Brazil");
 
         liveScoreboard.updateFootballMatchScore(match, 1, 2);
 
+        Assertions.assertTrue(liveScoreboard.areTeamPairsValid(match.getHomeTeamName(), match.getAwayTeamName()));
         Assertions.assertEquals(1, match.getHomeTeamScore(), "Home team score should be 1");
         Assertions.assertEquals(2, match.getAwayTeamScore(), "Away team score should be 2");
     }
@@ -77,16 +88,18 @@ public class LiveOddServiceTest {
     @Test
     void testUpdateFootballMatchWithNegativeScores() {
         LiveScoreboard liveScoreboard = new LiveScoreboard();
-        FootballMatch match = liveScoreboard.startFootballMatch("France", "Netherlands");
+        FootballMatch match = liveScoreboard.startFootballMatch("Germany", "France");
 
+        Assertions.assertTrue(liveScoreboard.areTeamPairsValid(match.getHomeTeamName(), match.getAwayTeamName()));
         Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.updateFootballMatchScore(match, -2, 1));
     }
 
     @Test
     void testUpdateFootballMatchWithVarIntervention() {
         LiveScoreboard liveScoreboard = new LiveScoreboard();
-        FootballMatch match = liveScoreboard.startFootballMatch("France", "Brazil");
+        FootballMatch match = liveScoreboard.startFootballMatch("Argentina", "Australia");
 
+        Assertions.assertTrue(liveScoreboard.areTeamPairsValid(match.getHomeTeamName(), match.getAwayTeamName()));
         liveScoreboard.updateFootballMatchScore(match, 1,0);
         Assertions.assertEquals(1, match.getHomeTeamScore(), "Home team score should be 1");
         Assertions.assertEquals(0, match.getAwayTeamScore(),"Away team score should be 0");
@@ -95,12 +108,13 @@ public class LiveOddServiceTest {
         Assertions.assertEquals(0, match.getHomeTeamScore(), "Home team score should be 0");
         Assertions.assertEquals(0, match.getAwayTeamScore(), "Away team score should be 0");
     }
-
+    //TODO : testUpdateFootballMatchScoreWhenMatchFinished
     @Test
     void testFinishFootballMatch() {
         LiveScoreboard liveScoreboard = new LiveScoreboard();
-        FootballMatch match = liveScoreboard.startFootballMatch("Italy", "Spain");
+        FootballMatch match = liveScoreboard.startFootballMatch("Uruguay", "Italy");
 
+        Assertions.assertTrue(liveScoreboard.areTeamPairsValid(match.getHomeTeamName(), match.getAwayTeamName()));
         liveScoreboard.finishFootballMatch(match);
 
         Assertions.assertFalse(liveScoreboard.getSummary().contains(match));
@@ -117,8 +131,8 @@ public class LiveOddServiceTest {
     @Test
     void testAlreadyFinishedMatch() {
         LiveScoreboard liveScoreboard = new LiveScoreboard();
-        FootballMatch match = liveScoreboard.startFootballMatch("Hungary", "Poland");
-
+        FootballMatch match = liveScoreboard.startFootballMatch("Spain", "Brazil");
+        liveScoreboard.areTeamPairsValid(match.getHomeTeamName(), match.getAwayTeamName());
         liveScoreboard.finishFootballMatch(match);
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.finishFootballMatch(match));
@@ -146,4 +160,5 @@ public class LiveOddServiceTest {
 
         Assertions.assertEquals(correctScoreboardOrder, currentScoreboardOrder, "Displayed order of football matches is not correct");
     }
+    //TODO : testGetFootballMatchSummaryWithEmptyScoreboard
 }
