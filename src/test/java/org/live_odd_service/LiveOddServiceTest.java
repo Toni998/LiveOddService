@@ -25,7 +25,7 @@ public class LiveOddServiceTest {
 
         FootballMatch match = liveScoreboard.startFootballMatch("Mexico", "Canada");
 
-        Assertions.assertTrue(liveScoreboard.areTeamPairsValid(match.getHomeTeamName(), match.getAwayTeamName()));
+        Assertions.assertTrue(liveScoreboard.areTeamPairsValid(match.getHomeTeamName(), match.getAwayTeamName(), false));
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.startFootballMatch("Mexico", "Canada"));
     }
@@ -36,8 +36,8 @@ public class LiveOddServiceTest {
         FootballMatch match = liveScoreboard.startFootballMatch("Croatia", "France");
         FootballMatch match2 = liveScoreboard.startFootballMatch("Poland", "Hungary");
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.areTeamPairsValid(match.getHomeTeamName(), match.getAwayTeamName()));
-        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.areTeamPairsValid(match2.getHomeTeamName(), match2.getAwayTeamName()));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.areTeamPairsValid(match.getHomeTeamName(), match.getAwayTeamName(), true));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.areTeamPairsValid(match2.getHomeTeamName(), match2.getAwayTeamName(), true));
         Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.isTeamParticipatingWorldCup(match.getHomeTeamName(), true));
         Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.isTeamParticipatingWorldCup(match2.getHomeTeamName(), true));
         Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.isTeamParticipatingWorldCup(match2.getAwayTeamName(), true));
@@ -57,8 +57,9 @@ public class LiveOddServiceTest {
         FootballMatch match = liveScoreboard.startFootballMatch("Croatia", "France");
         FootballMatch match2 = liveScoreboard.startFootballMatch("Mexico", "Canada");
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.areTeamPairsValid(match.getHomeTeamName(), match.getAwayTeamName()));
-        Assertions.assertTrue(liveScoreboard.areTeamPairsValid(match2.getHomeTeamName(), match2.getAwayTeamName()));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.areTeamPairsValid(match.getHomeTeamName(), match.getAwayTeamName(), true));
+        Assertions.assertTrue(liveScoreboard.areTeamPairsValid(match2.getHomeTeamName(), match2.getAwayTeamName(), false));
+        Assertions.assertFalse(liveScoreboard.areTeamPairsValid(match.getHomeTeamName(), match.getAwayTeamName(), false));
     }
 
     @Test
@@ -75,7 +76,7 @@ public class LiveOddServiceTest {
 
         liveScoreboard.updateFootballMatchScore(match, 1, 2);
 
-        Assertions.assertTrue(liveScoreboard.areTeamPairsValid(match.getHomeTeamName(), match.getAwayTeamName()));
+        Assertions.assertTrue(liveScoreboard.areTeamPairsValid(match.getHomeTeamName(), match.getAwayTeamName(), false));
         Assertions.assertEquals(1, match.getHomeTeamScore(), "Home team score should be 1");
         Assertions.assertEquals(2, match.getAwayTeamScore(), "Away team score should be 2");
     }
@@ -93,7 +94,7 @@ public class LiveOddServiceTest {
         LiveScoreboard liveScoreboard = new LiveScoreboard();
         FootballMatch match = liveScoreboard.startFootballMatch("Germany", "France");
 
-        Assertions.assertTrue(liveScoreboard.areTeamPairsValid(match.getHomeTeamName(), match.getAwayTeamName()));
+        Assertions.assertTrue(liveScoreboard.areTeamPairsValid(match.getHomeTeamName(), match.getAwayTeamName(), false));
         Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.updateFootballMatchScore(match, -2, 1));
     }
 
@@ -113,7 +114,7 @@ public class LiveOddServiceTest {
         LiveScoreboard liveScoreboard = new LiveScoreboard();
         FootballMatch match = liveScoreboard.startFootballMatch("Uruguay", "Italy");
 
-        Assertions.assertTrue(liveScoreboard.areTeamPairsValid(match.getHomeTeamName(), match.getAwayTeamName()));
+        Assertions.assertTrue(liveScoreboard.areTeamPairsValid(match.getHomeTeamName(), match.getAwayTeamName(), false));
         liveScoreboard.finishFootballMatch(match);
 
         Assertions.assertFalse(liveScoreboard.getSummary().contains(match));
@@ -131,7 +132,7 @@ public class LiveOddServiceTest {
     void testAlreadyFinishedMatch() {
         LiveScoreboard liveScoreboard = new LiveScoreboard();
         FootballMatch match = liveScoreboard.startFootballMatch("Spain", "Brazil");
-        liveScoreboard.areTeamPairsValid(match.getHomeTeamName(), match.getAwayTeamName());
+        liveScoreboard.areTeamPairsValid(match.getHomeTeamName(), match.getAwayTeamName(), false);
         liveScoreboard.finishFootballMatch(match);
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.finishFootballMatch(match));

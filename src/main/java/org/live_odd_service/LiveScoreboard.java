@@ -72,11 +72,12 @@ public class LiveScoreboard {
         return isParticipating;
     }
 
-    public boolean areTeamPairsValid(String homeTeamName, String awayTeamName) {
+    public boolean areTeamPairsValid(String homeTeamName, String awayTeamName, boolean throwException) {
         worldCupTeamPairs = initWorldCupPairs();
-        if (!worldCupTeamPairs.contains(List.of(homeTeamName, awayTeamName))) {
+        boolean isPairValid = worldCupTeamPairs.contains(List.of(homeTeamName, awayTeamName));
+        if (!isPairValid && throwException) {
             throw new IllegalArgumentException("Team pair is not valid");
         }
-        return true;
+        return isPairValid;
     }
 }
