@@ -26,6 +26,11 @@ public class LiveScoreboard {
         if (homeTeamName == null || awayTeamName == null || homeTeamName.isBlank() || awayTeamName.isBlank() || homeTeamName.equals(awayTeamName)) {
             throw new IllegalArgumentException("Incorrect team names");
         }
+        if (footballMatches.stream().anyMatch(match ->
+                match.getHomeTeamName().equals(homeTeamName) && match.getAwayTeamName().equals(awayTeamName))) {
+            throw new IllegalArgumentException("Match already started!");
+        }
+
         FootballMatch match = new FootballMatch(homeTeamName, awayTeamName, 0,0);
         footballMatches.add(match);
 
