@@ -18,7 +18,17 @@ public class LiveOddServiceTest {
         Assertions.assertEquals(initialScore, match.getAwayTeamScore(), "Away team initial score should be 0.");
     }
 
-    //TODO: testStartFootballMatchAlreadyStartedMatch
+    @Test
+    void testStartFootballMatchAlreadyStartedMatch() {
+        LiveScoreboard liveScoreboard = new LiveScoreboard();
+
+        FootballMatch match = liveScoreboard.startFootballMatch("Mexico", "Canada");
+
+        Assertions.assertTrue(liveScoreboard.areTeamPairsValid(match.getHomeTeamName(), match.getAwayTeamName()));
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.startFootballMatch("Mexico", "Canada"));
+    }
+
     @Test
     void testStartFootballMatchWithValidTeams() {
         LiveScoreboard liveScoreboard = new LiveScoreboard();
