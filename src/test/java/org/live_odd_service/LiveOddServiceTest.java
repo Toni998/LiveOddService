@@ -8,22 +8,35 @@ import java.util.List;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class LiveOddServiceTest {
 
-    WorldCup worldCupData;
+    WorldCup worldCup;
     LiveScoreboard liveScoreboard;
     @BeforeEach
     void setUp() {
-        worldCupData = new WorldCup();
-        liveScoreboard = new LiveScoreboard(worldCupData);
+        worldCup = new WorldCup();
+        liveScoreboard = new LiveScoreboard(worldCup);
+    }
+
+    @Test
+    @DisplayName("Participate world cup")
+    @Order(1)
+    void testParticipateWorldCup() {
+        FootballMatch match = liveScoreboard.startFootballMatch("Mexico", "Canada");
+
+        Assertions.assertFalse(liveScoreboard.isTeamParticipatingWorldCup("Croatia",false));
+        Assertions.assertTrue(liveScoreboard.isTeamParticipatingWorldCup("France",false));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.areTeamPairsValid("Croatia", "France",true));
+        Assertions.assertTrue(liveScoreboard.areTeamPairsValid("Mexico", "Canada",false));
+        Assertions.assertTrue(liveScoreboard.isTeamParticipatingWorldCup("Mexico",false));
     }
 
     @Test
     @DisplayName("Start football match")
-    @Order(1)
+    @Order(2)
     void testStartFootballMatch() {
-        FootballMatch match = liveScoreboard.startFootballMatch("Croatia", "France");
+        FootballMatch match = liveScoreboard.startFootballMatch("Germany", "France");
 
         int initialScore = 0;
-        Assertions.assertEquals("Croatia", match.getHomeTeamName(), "Home team name is not correct.");
+        Assertions.assertEquals("Germany", match.getHomeTeamName(), "Home team name is not correct.");
         Assertions.assertEquals("France", match.getAwayTeamName(), "Away team name is not correct.");
         Assertions.assertEquals(initialScore, match.getHomeTeamScore(), "Home team initial score should be 0.");
         Assertions.assertEquals(initialScore, match.getAwayTeamScore(), "Away team initial score should be 0.");
@@ -31,7 +44,7 @@ public class LiveOddServiceTest {
 
     @Test
     @DisplayName("Start football match - already started match")
-    @Order(2)
+    @Order(3)
     void testStartFootballMatchAlreadyStartedMatch() {
         FootballMatch match = liveScoreboard.startFootballMatch("Mexico", "Canada");
         Assertions.assertTrue(liveScoreboard.areTeamPairsValid(match.getHomeTeamName(), match.getAwayTeamName(), false));
@@ -40,43 +53,29 @@ public class LiveOddServiceTest {
 
     @Test
     @DisplayName("Start football match - valid names")
-    @Order(3)
+    @Order(4)
     void testStartFootballMatchWithValidTeams() {
-        FootballMatch match = liveScoreboard.startFootballMatch("Croatia", "France");
-        FootballMatch match2 = liveScoreboard.startFootballMatch("Poland", "Hungary");
+        FootballMatch match = liveScoreboard.startFootballMatch("Mexico", "Canada");
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.areTeamPairsValid(match.getHomeTeamName(), match.getAwayTeamName(), true));
-        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.areTeamPairsValid(match2.getHomeTeamName(), match2.getAwayTeamName(), true));
-        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.isTeamParticipatingWorldCup(match.getHomeTeamName(), true));
-        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.isTeamParticipatingWorldCup(match2.getHomeTeamName(), true));
-        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.isTeamParticipatingWorldCup(match2.getAwayTeamName(), true));
+        Assertions.assertTrue(liveScoreboard.isTeamParticipatingWorldCup(match.getAwayTeamName(),false));
+        Assertions.assertTrue(liveScoreboard.isTeamParticipatingWorldCup(match.getHomeTeamName(),false));
+        Assertions.assertTrue(liveScoreboard.areTeamPairsValid(match.getHomeTeamName(),match.getAwayTeamName(),false));
+    }
+
+    @Test
+    @DisplayName("Start football match - invalid names")
+    @Order(5)
+    void testStartFootballMatchWithInvalidTeams() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.startFootballMatch("", ""));
-        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.startFootballMatch("", "Brazil"));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.startFootballMatch("Croatia", "Brazil"));
         Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.startFootballMatch("France", ""));
         Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.startFootballMatch("   ", "   "));
         Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.startFootballMatch("Spain", "   "));
         Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.startFootballMatch("Sp ain", "   "));
-        Assertions.assertFalse(liveScoreboard.isTeamParticipatingWorldCup(match.getHomeTeamName(),false));
-        Assertions.assertTrue(liveScoreboard.isTeamParticipatingWorldCup(match.getAwayTeamName(),false));
-    }
-
-    @Test
-    @DisplayName("Team pairs valid")
-    @Order(4)
-    void testAreTeamPairsValid() {
-        FootballMatch match = liveScoreboard.startFootballMatch("Croatia", "France");
-        FootballMatch match2 = liveScoreboard.startFootballMatch("Mexico", "Canada");
-
-        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.areTeamPairsValid(match.getHomeTeamName(), match.getAwayTeamName(), true));
-        Assertions.assertTrue(liveScoreboard.areTeamPairsValid(match2.getHomeTeamName(), match2.getAwayTeamName(), false));
-        Assertions.assertFalse(liveScoreboard.areTeamPairsValid(match.getHomeTeamName(), match.getAwayTeamName(), false));
-    }
-
-    @Test
-    @DisplayName("Start football match - same names")
-    @Order(5)
-    void testStartFootballMatchWithSameNames() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.startFootballMatch("Croatia", "Croatia"));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.startFootballMatch("Croatia", "France"));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.startFootballMatch(null, null));
+        Assertions.assertFalse(liveScoreboard.areTeamPairsValid("Croatia","Brazil",false));
+        Assertions.assertFalse(liveScoreboard.isTeamParticipatingWorldCup("Croatia",false));
     }
 
     @Test
@@ -149,7 +148,6 @@ public class LiveOddServiceTest {
     @Order(12)
     void testAlreadyFinishedMatch() {
         FootballMatch match = liveScoreboard.startFootballMatch("Spain", "Brazil");
-        liveScoreboard.areTeamPairsValid(match.getHomeTeamName(), match.getAwayTeamName(), false);
         liveScoreboard.finishFootballMatch(match);
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> liveScoreboard.finishFootballMatch(match));

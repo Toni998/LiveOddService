@@ -23,6 +23,10 @@ public class LiveScoreboard {
                 match.getHomeTeamName().equals(homeTeamName) && match.getAwayTeamName().equals(awayTeamName))) {
             throw new IllegalArgumentException("Match already started!");
         }
+
+        if (!worldCup.isTeamParticipating(homeTeamName) || !worldCup.isTeamParticipating(awayTeamName)) {
+            throw new IllegalArgumentException("Team is not participating in world cup");
+        }
         FootballMatch match = new FootballMatch(homeTeamName, awayTeamName, 0,0);
         footballMatches.add(match);
         return match;
@@ -68,5 +72,9 @@ public class LiveScoreboard {
             throw new IllegalArgumentException("Team pair is not valid");
         }
         return isPairValid;
+    }
+
+    public List<FootballMatch> getUnorderedSummary() {
+        return this.footballMatches;
     }
 }
