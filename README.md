@@ -1,7 +1,7 @@
 Live Scoreboard
 
--Live scorebaord is a simple library which simulates socreboard for representing ongoing matches.
--Live scoreboard can start, update, finish and output football matches.
+-Live scorebaord is a simple library which simulates socreboard for representing ongoing matches./n
+-Live scoreboard can start, update, finish and output football matches./n
 
 Functionalities : 
 -Starting football match
