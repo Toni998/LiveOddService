@@ -16,31 +16,14 @@ public class LiveScoreboard {
     }
 
     FootballMatch startFootballMatch(String homeTeamName, String awayTeamName) {
-        if (homeTeamName == null || awayTeamName == null || homeTeamName.isBlank() || awayTeamName.isBlank() || homeTeamName.equals(awayTeamName)) {
-            throw new IllegalArgumentException("Incorrect team names");
-        }
-        if (footballMatches.stream().anyMatch(match ->
-                match.getHomeTeamName().equals(homeTeamName) && match.getAwayTeamName().equals(awayTeamName))) {
-            throw new IllegalArgumentException("Match already started!");
-        }
-
-        if (!worldCup.isTeamParticipating(homeTeamName) || !worldCup.isTeamParticipating(awayTeamName)) {
-            throw new IllegalArgumentException("Team is not participating in world cup");
-        }
+        validateStartFootballMatch(homeTeamName, awayTeamName);
         FootballMatch match = new FootballMatch(homeTeamName, awayTeamName, 0,0);
         footballMatches.add(match);
         return match;
     }
 
     public void updateFootballMatchScore(FootballMatch match, int homeTeamScore, int awayTeamScore) {
-        if (!footballMatches.contains(match)) {
-            throw new IllegalArgumentException("Match update not possible, invalid match");
-        }
-        if (homeTeamScore < 0 || awayTeamScore < 0) {
-            throw new IllegalArgumentException("Invalid score update, score cannot be negative after update");
-        } else {
-            match.updateScore(homeTeamScore, awayTeamScore);
-        }
+        validateUpdateFootballMatchScore(match, homeTeamScore, awayTeamScore);
     }
 
     public void finishFootballMatch(FootballMatch match) {
@@ -76,5 +59,30 @@ public class LiveScoreboard {
 
     public List<FootballMatch> getUnorderedSummary() {
         return this.footballMatches;
+    }
+
+    private void validateUpdateFootballMatchScore(FootballMatch match, int homeTeamScore, int awayTeamScore) {
+        if (!footballMatches.contains(match)) {
+            throw new IllegalArgumentException("Match update not possible, invalid match");
+        }
+        if (homeTeamScore < 0 || awayTeamScore < 0) {
+            throw new IllegalArgumentException("Invalid score update, score cannot be negative after update");
+        } else {
+            match.updateScore(homeTeamScore, awayTeamScore);
+        }
+    }
+
+    private void validateStartFootballMatch(String homeTeamName, String awayTeamName) {
+        if (homeTeamName == null || awayTeamName == null || homeTeamName.isBlank() || awayTeamName.isBlank() || homeTeamName.equals(awayTeamName)) {
+            throw new IllegalArgumentException("Incorrect team names");
+        }
+        if (footballMatches.stream().anyMatch(match ->
+                match.getHomeTeamName().equals(homeTeamName) && match.getAwayTeamName().equals(awayTeamName))) {
+            throw new IllegalArgumentException("Match already started!");
+        }
+
+        if (!worldCup.isTeamParticipating(homeTeamName) || !worldCup.isTeamParticipating(awayTeamName)) {
+            throw new IllegalArgumentException("Team is not participating in world cup");
+        }
     }
 }

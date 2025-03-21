@@ -1,10 +1,12 @@
 package org.live_odd_service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class WorldCup {
     private final List<String> worldCupTeams;
-    private final List<List<String>> worldCupTeamPairs;
+    private final Map<String, String> worldCupTeamPairs;
 
     public WorldCup() {
         this.worldCupTeams = List.of(
@@ -12,13 +14,12 @@ public class WorldCup {
                 "Germany", "France", "Uruguay", "Italy",
                 "Argentina", "Australia"
         );
-        this.worldCupTeamPairs = List.of(
-                List.of("Mexico", "Canada"),
-                List.of("Spain", "Brazil"),
-                List.of("Germany", "France"),
-                List.of("Uruguay", "Italy"),
-                List.of("Argentina", "Australia")
-        );
+        this.worldCupTeamPairs = new HashMap<>();
+        worldCupTeamPairs.put("Mexico", "Canada");
+        worldCupTeamPairs.put("Spain", "Brazil");
+        worldCupTeamPairs.put("Germany", "France");
+        worldCupTeamPairs.put("Uruguay", "Italy");
+        worldCupTeamPairs.put("Argentina", "Australia");
     }
 
     public boolean isTeamParticipating(String teamName) {
@@ -26,6 +27,6 @@ public class WorldCup {
     }
 
     public boolean isValidTeamPair(String homeTeam, String awayTeam) {
-        return worldCupTeamPairs.contains(List.of(homeTeam, awayTeam));
+        return worldCupTeamPairs.containsKey(homeTeam) && worldCupTeamPairs.get(homeTeam).equals(awayTeam);
     }
 }

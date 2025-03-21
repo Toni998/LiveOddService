@@ -6,16 +6,7 @@ public class Main {
     public static void main(String[] args) {
         LiveScoreboard liveScoreboard = SummaryFactory.createLiveScoreboard();
 
-        FootballMatch match1 = liveScoreboard.startFootballMatch("Mexico", "Canada");
-        liveScoreboard.updateFootballMatchScore(match1, 0, 5);
-        FootballMatch match2 = liveScoreboard.startFootballMatch("Spain", "Brazil");
-        liveScoreboard.updateFootballMatchScore(match2, 10, 2);
-        FootballMatch match3 = liveScoreboard.startFootballMatch("Germany", "France");
-        liveScoreboard.updateFootballMatchScore(match3, 2, 2);
-        FootballMatch match4 = liveScoreboard.startFootballMatch("Uruguay", "Italy");
-        liveScoreboard.updateFootballMatchScore(match4, 6, 6);
-        FootballMatch match5 = liveScoreboard.startFootballMatch("Argentina", "Australia");
-        liveScoreboard.updateFootballMatchScore(match5, 3, 1);
+        initialFootballMatches(liveScoreboard);
 
         List<FootballMatch> currentScoreboardOrder = liveScoreboard.getSummary();
 
@@ -29,5 +20,18 @@ public class Main {
         for(FootballMatch footballMatch : currentScoreboardOrder) {
             System.out.println(footballMatch);
         }
+    }
+
+    private static void initialFootballMatches(LiveScoreboard liveScoreboard) {
+        FootballMatch match1 = liveScoreboard.startFootballMatch("Mexico", "Canada");
+        liveScoreboard.updateFootballMatchScore(match1, 0, 5);
+        FootballMatch match2 = liveScoreboard.startFootballMatch("Spain", "Brazil");
+        liveScoreboard.updateFootballMatchScore(match2, 10, 2);
+        FootballMatch match3 = liveScoreboard.startFootballMatch("Germany", "France");
+        liveScoreboard.updateFootballMatchScore(match3, 2, 2);
+        FootballMatch match4 = liveScoreboard.startFootballMatch("Uruguay", "Italy");
+        liveScoreboard.updateFootballMatchScore(match4, 6, 6);
+        FootballMatch match5 = liveScoreboard.startFootballMatch("Argentina", "Australia");
+        liveScoreboard.updateFootballMatchScore(match5, 3, 1);
     }
 }
