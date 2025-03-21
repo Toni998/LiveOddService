@@ -4,11 +4,11 @@ Live Scoreboard
 -Live scoreboard can start, update, finish and output football matches.
 
 Functionalities : 
-  1.Starting football match
-  2.Checking if teams are participating world cup 
-  3.Checking if given team pair is a valid one 
-  4.Updating apsulute score
-  5.Getting summary for all matches and apply sorting.
+1.Starting football match
+2.Checking if teams are participating world cup 
+3.Checking if given team pair is a valid one 
+4.Updating apsulute score
+5.Getting summary for all matches and apply sorting.
 
 The scoreboard supports the following operations:
 1. Start a new match, assuming initial score 0 – 0 and adding it the scoreboard.
