@@ -4,11 +4,11 @@ Live Scoreboard
 -Live scoreboard can start, update, finish and output football matches.<br />
 
 Functionalities : <br />
--Starting football match<br />
--Checking if teams are participating world cup <br />
--Checking if given team pair is a valid one <br />
--Updating apsulute score<br />
--Getting summary for all matches and apply sorting.<br />
+- Starting football match<br />
+- Checking if teams are participating world cup <br />
+- Checking if given team pair is a valid one <br />
+- Updating apsulute score<br />
+- Getting summary for all matches and apply sorting.<br />
 
 The scoreboard supports the following operations:
 1. Start a new match, assuming initial score 0 – 0 and adding it the scoreboard.
@@ -21,12 +21,12 @@ team score.
 4. Get a summary of matches in progress ordered by their total score. The matches with the
 same total sc
 
-Architecure : 
-FootballMatch - class representing a football match containg informations about football match and funtions for retriving data for selected match
-LiveScoreboard - Simulation of scoreboard for live football matches which is responsible for processing data about football match for starting, updating, finish football match.
-LiveOddServiceTest - class where all tests are implemented. Applicatipn is implemented in TDD design.
-Main - main program where the football matches are defined and applied sorting for getting summary as in the example above.
-SummaryFactory - class used for DI container
+Architecure : <br />
+FootballMatch - class representing a football match containg informations about football match and funtions for retriving data for selected match<br />
+LiveScoreboard - Simulation of scoreboard for live football matches which is responsible for processing data about football match for starting, updating, finish football match.<br />
+LiveOddServiceTest - class where all tests are implemented. Applicatipn is implemented in TDD design.<br />
+Main - main program where the football matches are defined and applied sorting for getting summary as in the example above.<br />
+SummaryFactory - class used for DI container<br />
 
 Testing is done with Junit5 framework
 
@@ -47,11 +47,11 @@ Test ovreview :
 - Match summary - empty list - responsible for testing output when empty scoreboard provided for getting summary. 
 
 How to run ?<br />
--Clone LiveOddService repository.<br />
--Open in desired IDE (implemented in Intelij)<br />
--Add dependencies<br />
--For running tests -> open LiveOddServiceTest and run it<br />
--For running main program and checking summary from requirements -> run main program<br />
+- Clone LiveOddService repository.<br />
+- Open in desired IDE (implemented in Intelij)<br />
+- Add dependencies<br />
+- For running tests -> open LiveOddServiceTest and run it<br />
+- For running main program and checking summary from requirements -> run main program<br />
 
 Enjoy !
 
