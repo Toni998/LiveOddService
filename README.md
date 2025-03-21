@@ -1,14 +1,14 @@
 Live Scoreboard
 
--Live scorebaord is a simple library which simulates socreboard for representing ongoing matches./n
--Live scoreboard can start, update, finish and output football matches./n
+-Live scorebaord is a simple library which simulates socreboard for representing ongoing matches.<br />
+-Live scoreboard can start, update, finish and output football matches.<br />
 
-Functionalities : 
--Starting football match
--Checking if teams are participating world cup 
--Checking if given team pair is a valid one 
--Updating apsulute score
--Getting summary for all matches and apply sorting.
+Functionalities : <br />
+-Starting football match<br />
+-Checking if teams are participating world cup <br />
+-Checking if given team pair is a valid one <br />
+-Updating apsulute score<br />
+-Getting summary for all matches and apply sorting.<br />
 
 The scoreboard supports the following operations:
 1. Start a new match, assuming initial score 0 – 0 and adding it the scoreboard.
@@ -46,12 +46,12 @@ Test ovreview :
 - Match summary - responsible for starting few matches. Updating scores for all matches. List of expected football matches on scoreboard is created. Assertion is done for getting equal list of expected order.
 - Match summary - empty list - responsible for testing output when empty scoreboard provided for getting summary. 
 
-How to run ?
--Clone LiveOddService repository.
--Open in desired IDE (implemented in Intelij)
--Add dependencies
--For running tests -> open LiveOddServiceTest and run it
--For running main program and checking summary from requirements -> run main program
+How to run ?<br />
+-Clone LiveOddService repository.<br />
+-Open in desired IDE (implemented in Intelij)<br />
+-Add dependencies<br />
+-For running tests -> open LiveOddServiceTest and run it<br />
+-For running main program and checking summary from requirements -> run main program<br />
 
 Enjoy !
 
