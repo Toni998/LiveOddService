@@ -4,11 +4,11 @@ Live Scoreboard
 -Live scoreboard can start, update, finish and output football matches.
 
 Functionalities : 
-1.Starting football match
-2.Checking if teams are participating world cup 
-3.Checking if given team pair is a valid one 
-4.Updating apsulute score
-5.Getting summary for all matches and apply sorting.
+-Starting football match
+-Checking if teams are participating world cup 
+-Checking if given team pair is a valid one 
+-Updating apsulute score
+-Getting summary for all matches and apply sorting.
 
 The scoreboard supports the following operations:
 1. Start a new match, assuming initial score 0 – 0 and adding it the scoreboard.
@@ -47,11 +47,11 @@ Test ovreview :
 - Match summary - empty list - responsible for testing output when empty scoreboard provided for getting summary. 
 
 How to run ?
-1.Clone LiveOddService repository.
-2.Open in desired IDE (implemented in Intelij)
-3.Add dependencies
-4.For running tests -> open LiveOddServiceTest and run it
-5.For running main program and checking summary from requirements -> run main program
+-Clone LiveOddService repository.
+-Open in desired IDE (implemented in Intelij)
+-Add dependencies
+-For running tests -> open LiveOddServiceTest and run it
+-For running main program and checking summary from requirements -> run main program
 
 Enjoy !
 
